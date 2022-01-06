@@ -28,7 +28,7 @@ class ItemRecyclerAdapter(
     class SmallViewHolder(val mContext: Context, view : View) : RecyclerView.ViewHolder(view) {
         val textView = view.findViewById<TextView>(R.id.tv_desk_kor)
         fun bind( context: Context, data: Item ) {
-            textView.text =data.BGN_YEAR
+            textView.text =data.DESC_KOR
         }
     }
 
