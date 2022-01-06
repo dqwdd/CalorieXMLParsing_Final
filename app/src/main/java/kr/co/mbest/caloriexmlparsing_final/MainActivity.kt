@@ -2,6 +2,7 @@ package kr.co.mbest.caloriexmlparsing_final
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -27,7 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mRecyclerAdapter: ItemRecyclerAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.tvLine.setOnClickListener {
+
+            binding.progressbar.visibility = View.VISIBLE
 
             apiServic.getRequestKcalList(key).enqueue(object : Callback<Library> {
                 override fun onFailure(call: Call<Library>, t: Throwable) {
@@ -65,9 +67,11 @@ class MainActivity : AppCompatActivity() {
                         mItemList.addAll(basicResponse.body.items.item!!)
 
                         mRecyclerAdapter.notifyDataSetChanged()
+                        binding.progressbar.visibility = View.GONE
 
                     } else {
                         Log.d("응답 실패", "${call.isCanceled.toString()}")
+                        binding.progressbar.visibility = View.GONE
                     }
                 }
 
